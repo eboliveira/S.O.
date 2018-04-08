@@ -1,14 +1,16 @@
 class Processo(object):
-    
-    def __init__(self, id, prioridade, tempos):
+    tempos = []
+    estado = None
+    eventos = []
+
+
+    def __init__(self, id, prioridade, tempos, estado, eventos):
         self.id = id
         self.prioridade = prioridade
         self.tempos = tempos
-    def printProcesso(self):
-        print("Id: %d - Prioridade: %d Tempo 1: %d", self.id, self.prioridade)
-
-
-#MAIN#
-
-processo_exemplo = Processo(1,1,{10,10,10})
-print(processo_exemplo.id)
+        self.estado = estado
+        self.eventos = eventos
+    def __str__(self):
+        return "\n" + str(self.__dict__)
+    def __repr__(self):
+        return str(self) + "\n"
