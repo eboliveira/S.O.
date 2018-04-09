@@ -10,5 +10,4 @@ if len(sys.argv)  != 2:
 arq = open(sys.argv[1], 'r')
 processos = util.formatarProcessos(arq,processo)
 fifo = escalonadores.FIFO(processos)
-fifo.ordenar()
-print(fifo.ordem)
+fifo.executar()
