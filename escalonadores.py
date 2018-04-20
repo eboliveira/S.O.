@@ -13,6 +13,8 @@ class Escalonadores(object):
         pass
     def executar(self, processo):
         pass
+    def exec_IO(self, evento):
+        pass
 
     
 
@@ -29,7 +31,6 @@ class FIFO(Escalonadores):
     def executar(self): #função principal, executa os processos na ordem fifo
         self.ordenar()
         for i in range(len(self.ordem)):
-
             if self.tempos["execucao"] < self.ordem[i].tempos["chegada"]:   #verifica se não tinha outro processo executando
                 dif = self.ordem[i].tempos["chegada"] - self.tempos["execucao"] #
                 self.tempos["espera"] = self.tempos["espera"] + dif             #Se nao tinha outro processo executando, adiciona ao tempo de espera, o tempo em que o programa está ocioso
@@ -39,7 +40,9 @@ class FIFO(Escalonadores):
             if self.ordem[i].tempos["chegada"] < self.tempos["execucao"]:   #verifica se ele esperou pra ser executado
                 dif = self.tempos["execucao"] - self.ordem[i].tempos["chegada"]
                 self.tempos["espera"] = self.tempos["espera"] + dif
-                
+            for j in range(len(self.ordem[i].eventos)): #execucao dos I/O
+                self.exec_IO(self.ordem[i].eventos[j])
+            
             print("{} - {} # Processo {}".format(self.tempos["execucao"], (self.tempos["execucao"]+self.ordem[i].tamanho), self.ordem[i].id))
             self.tempos["execucao"] =self.tempos["execucao"] + self.ordem[i].tamanho 
             self.ordem[i].estado = "terminado"  #seta o estado do processo como terminado
