@@ -40,12 +40,13 @@ class FIFO(Escalonadores):
             if self.ordem[i].tempos["chegada"] < self.tempos["execucao"]:   #verifica se ele esperou pra ser executado
                 dif = self.tempos["execucao"] - self.ordem[i].tempos["chegada"]
                 self.tempos["espera"] = self.tempos["espera"] + dif
-            for j in range(len(self.ordem[i].eventos)): #execucao dos I/O
-                self.exec_IO(self.ordem[i].eventos[j])
             
             print("{} - {} # Processo {}".format(self.tempos["execucao"], (self.tempos["execucao"]+self.ordem[i].tamanho), self.ordem[i].id))
             self.tempos["execucao"] =self.tempos["execucao"] + self.ordem[i].tamanho 
             self.ordem[i].estado = "terminado"  #seta o estado do processo como terminado
+            for j in range(len(self.ordem[i].eventos)): #execucao dos I/O
+                self.exec_IO(self.ordem[i].eventos[j])
+                print("Evento de IO do processo {} do tempo {} executado no tempo {}".format(self.ordem[i].id,self.ordem[i].eventos[j],self.tempos["execucao"]))
         print("\nTempo total de execução: {}ns".format(self.tempos["execucao"]))
         print("Tempo total de espera: {}ns".format(self.tempos["espera"]))
         print("Tempo médio de espera: {}ns".format((float(self.tempos["espera"]) / float(len(self.ordem)))))
