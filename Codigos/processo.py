@@ -31,11 +31,9 @@ class Sistema(Processo):
     def __init__(self):
         self.tipo = SISTEMA
 
-    def exec_IO(self, lista_espera, tempo_exec):
-        lista_prontos = []
-        for i in range(len(lista_espera)):
-            print "Evento de IO do processo ID = {} executado no tempo: {}".format(lista_espera[0].id, tempo_exec)
-            lista_prontos.append(lista_espera.pop(0))
-        return lista_prontos
+    def exec_IO(self, processo, tempo_exec):
+        if len(processo.eventos):
+            print "Evento de IO do processo ID = {} executado no tempo: {}".format(processo.id, tempo_exec)
+            processo.eventos.pop(0)
         
   

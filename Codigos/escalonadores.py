@@ -107,18 +107,22 @@ class FIFO(Escalonadores):
 
     def executar(self): #função principal, executa os processos na ordem fifo
         self.ordenar()
-        for i in range(len(self.ordem)):
-            if self.ordem[i].tipo == processo.USUARIO:
+        for i in range(len(self.ordem)):#para todos os processos
+            if self.ordem[i].tipo == processo.USUARIO:  #se for processo de usuario
                 self.esperar(self.ordem[i])
                 self.lista_prontos.append(self.ordem[i])
+                print("{} - {} # Processo {}".format(self.tempos["execucao"], (self.tempos["execucao"]+self.ordem[i].tamanho), self.ordem[i].id))
                 self.executar_proc(self.ordem[i])
                 if len(self.ordem[i].eventos):
                     self.bloqueiaProcIO(self.ordem[i])
                 else:
                     self.lista_prontos.remove(self.ordem[i])
-            else:
-                self.lista_prontos = self.ordem[i].exec_IO(self.lista_espera,self.tempos["execucao"])
-                self.lista_prontos = []
+            else:# se for processo do sistema
+                for j in range(len(self.lista_espera)):
+                    for k in range(len(self.lista_espera[j].eventos)):
+                        self.ordem[i].exec_IO(self.lista_espera[j],self.tempos["execucao"])
+                
+        self.lista_prontos = []
 
         print("\nTempo total de execução: {}ns".format(self.tempos["execucao"]))
         print("Tempo total de espera: {}ns".format(self.tempos["espera"]))
@@ -149,7 +153,6 @@ se todos os processos foram executados até o final
         #         dif = self.tempos["execucao"] - self.ordem[i].tempos["chegada"]
         #         self.tempos["espera"] = self.tempos["espera"] + dif
             
-        #     print("{} - {} # Processo {}".format(self.tempos["execucao"], (self.tempos["execucao"]+self.ordem[i].tamanho), self.ordem[i].id))
         #     self.tempos["execucao"] =self.tempos["execucao"] + self.ordem[i].tamanho 
         #     self.ordem[i].estado = "terminado"  #seta o estado do processo como terminado
         #     for j in range(len(self.ordem[i].eventos)): #execucao dos I/O
