@@ -5,11 +5,13 @@ import escalonadores
 import util
 
 if len(sys.argv)  != 2:
-    print("Modo de uso: python main.py <arquivos contendo informações dos processos>")
+    print("ERROR: Modo de uso: python main.py <arquivos contendo informações dos processos>")
     exit(1)
 arq = open(sys.argv[1], 'r')
 processos = util.formatarProcessos(arq,processo)
-#fifo = escalonadores.FIFO(processos)
-#fifo.executar() 
-sjf = escalonadores.SJF(processos) 
-sjf.executar()
+# print processos
+fifo = escalonadores.FIFO(processos)
+# fifo.ordenar()
+fifo.executar() 
+# sjf = escalonadores.SJF(processos) 
+# sjf.executar()
