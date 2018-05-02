@@ -10,8 +10,12 @@ if len(sys.argv)  != 2:
 arq = open(sys.argv[1], 'r')
 processos = util.formatarProcessos(arq,processo)
 # print processos
-fifo = escalonadores.FIFO(processos)
-# fifo.ordenar()
-fifo.executar() 
-# sjf = escalonadores.SJF(processos) 
-# sjf.executar()
+#fifo = escalonadores.FIFO(processos)
+#fifo.executar()  
+ 
+#sjf = escalonadores.SJF(processos) 
+#sjf.executar()
+ 
+rr = escalonadores.RR(processos)  
+#Passar o timeslice
+rr.executar(10)
