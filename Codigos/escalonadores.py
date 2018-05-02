@@ -178,10 +178,10 @@ class RR(Escalonadores):
         while tempo_total > 1:         
              for i in range(len(self.ordem)): 
                  if self.ordem[i].tipo == processo.USUARIO:  #se for processo de usuario  
-                     if i == 0:  
-                     	while self.tempos["execucao"] < self.ordem[i].tempos["chegada"]:
-             				self.tempos["execucao"] = self.tempos["execucao"] + 1 
-             				self.tempos["espera"] = self.tempos["espera"] + 1 
+                     while self.tempos["execucao"] < self.ordem[i].tempos["chegada"]:
+             			self.tempos["execucao"] = self.tempos["execucao"] + 1 
+             			self.tempos["espera"] = self.tempos["espera"] + 1 
+             			aux_tempo +=1 
                      self.lista_prontos.append(self.ordem[i])
                      # se o tamanho for menor que o timeslice executa todo o processo
                      if self.ordem[i].tamanho <= timeslice: 
