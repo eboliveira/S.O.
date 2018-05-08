@@ -9,13 +9,21 @@ if len(sys.argv)  != 2:
     exit(1)
 arq = open(sys.argv[1], 'r')
 processos = util.formatarProcessos(arq,processo)
-# print processos
+# print processos 
+
+#print "Algoritmo de Escalonamento: FIFO (Fist in First out)"
 #fifo = escalonadores.FIFO(processos)
 #fifo.executar()  
- 
+  
+#print "Algoritmo de Escalonamento: SJF (Shorted Job First)"
 #sjf = escalonadores.SJF(processos) 
 #sjf.executar()
- 
-rr = escalonadores.RR(processos)  
+  
+#print "Algoritmo de Escalonamento: RR (Round Robin)" 
+#rr = escalonadores.RR(processos)  
 #Passar o timeslice
-rr.executar(10)
+#rr.executar(10)
+ 
+#print "Algoritmo de Escalonamento: Prioridades"  
+#prioridades = escalonadores.PRIORIDADES(processos) 
+#prioridades.executar() 
